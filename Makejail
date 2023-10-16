@@ -1,0 +1,5 @@
+INCLUDE options/options.makejail
+
+ARG phpmyadmin_tag=13.2-php82-apache
+
+FROM --entrypoint gh+AppJail-makejails/phpmyadmin phpmyadmin:${phpmyadmin_tag}

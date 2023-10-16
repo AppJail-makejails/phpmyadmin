@@ -1,0 +1,5 @@
+INCLUDE gh+AppJail-makejails/apache
+INCLUDE install-phpmyadmin.makejail
+
+CMD rm -rf /usr/local/www/apache24/data/*
+CMD cp -a /usr/local/www/phpMyAdmin/* /usr/local/www/apache24/data
