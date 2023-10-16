@@ -1,0 +1,16 @@
+tags+: 13.2-php82-apache
+13.2-php82-apache.arch: amd64
+13.2-php82-apache.name: "phpmyadmin"
+13.2-php82-apache.timestamp.amd64: 1697457572
+13.2-php82-apache.sum.amd64: 58c51fd708f03e4a1adadc503ec7fbb90d0339a776cef57b38d9c9e55841e2ce
+13.2-php82-apache.size.amd64: 94094428
+13.2-php82-apache.source.amd64: https://images.all101bsd.download/phpmyadmin-apache/13.2-php82-apache-amd64-image.appjail
+13.2-php82-apache.source.amd64+: http://appjail.hpc.at/phpmyadmin-apache/13.2-php82-apache-amd64-image.appjail
+tags+: 13.2-php82-fpm
+13.2-php82-fpm.arch: amd64
+13.2-php82-fpm.name: "phpmyadmin"
+13.2-php82-fpm.timestamp.amd64: 1697458175
+13.2-php82-fpm.sum.amd64: 62eb8cb7979436bbd990001e117748612776bdac2c3341045d5f060aa8616e49
+13.2-php82-fpm.size.amd64: 44285448
+13.2-php82-fpm.source.amd64: https://images.all101bsd.download/phpmyadmin-fpm/13.2-php82-fpm-amd64-image.appjail
+13.2-php82-fpm.source.amd64+: http://appjail.hpc.at/phpmyadmin-fpm/13.2-php82-fpm-amd64-image.appjail
