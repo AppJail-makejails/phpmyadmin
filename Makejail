@@ -1,5 +1,250 @@
 INCLUDE options/options.makejail
 
-ARG phpmyadmin_tag=13.2-php82-apache
+ARG pma_blowfish_secret?
+ARG pma_arbitrary?
+ARG pma_host?
+ARG pma_hosts?
+ARG pma_verbose?
+ARG pma_verboses?
+ARG pma_socket?
+ARG pma_sockets?
+ARG pma_port?
+ARG pma_ports?
+ARG pma_absolute_uri?
+ARG pma_hide_php_version?
+ARG pma_upload_limit=2048K
+ARG pma_memory_limit=512M
+ARG pma_max_execution_time=600
+ARG pma_session_save_path=/sessions
+ARG pma_user?
+ARG pma_password?
+ARG pma_uploaddir?
+ARG pma_savedir?
+ARG pma_controlhost?
+ARG pma_controlport?
+ARG pma_controluser?
+ARG pma_controlpass?
+ARG pma_pmadb?
+ARG pma_queryhistorydb?
+ARG pma_queryhistorymax=25
+ARG pma_tz=UTC
+ARG pma_php_type=production
+ARG pma_enable_curl_support=1
+# Tag.
+ARG pma_tag=13.2-php82-apache
 
-FROM --entrypoint gh+AppJail-makejails/phpmyadmin phpmyadmin:${phpmyadmin_tag}
+FROM --entrypoint gh+AppJail-makejails/phpmyadmin phpmyadmin:${pma_tag}
+
+# Determine whether this Makejail will use apache or php-fpm.
+RAW case "${pma_tag}" in
+RAW 	*apache*)
+RAW 		pma_type=apache
+RAW 		;;
+RAW 	*fpm*)
+RAW 		pma_type=fpm
+RAW 		;;
+RAW 	*)
+RAW 		echo "###> '${pma_type}' Invalid pma_type. <###"
+RAW 		exit 1
+RAW 		;;
+RAW esac
+
+CMD echo "======> Installing scripts ... <======"
+COPY --verbose scripts
+
+CMD echo "======> Configuring ... <======"
+CMD mkdir -p /pma
+
+RAW if [ -n "${pma_blowfish_secret}" ]; then
+	CMD echo "======> Configuring blowfish secret (manual) ... <======"
+	CMD printf "%s" "${pma_blowfish_secret}" > /pma/blowfish_secret
+RAW else
+	CMD echo "======> Configuring blowfish secret (auto) ... <======"
+	CMD /scripts/gen-secret.sh > /pma/blowfish_secret
+RAW fi
+
+RAW if [ -n "${pma_arbitrary}" ]; then
+	CMD echo "======> AllowArbitraryServer -> true <======"
+	CMD touch /pma/AllowArbitraryServer
+RAW fi
+
+RAW if [ -n "${pma_hosts}" ]; then
+	CMD echo "======> Configuring hosts ... <======"
+	CMD printf "%s" "${pma_hosts}" > /pma/hosts
+RAW elif [ -n "${pma_host}" ]; then
+	CMD echo "======> Configuring host ... <======"
+	CMD printf "%s" "${pma_host}" > /pma/host
+RAW fi
+
+RAW if [ -n "${pma_verboses}" ]; then
+	CMD echo "======> Configuring verboses ... <======"
+	CMD printf "%s" "${pma_verboses}" > /pma/verboses
+RAW elif [ -n "${pma_verbose}" ]; then
+	CMD echo "======> Configuring verbose ... <======"
+	CMD printf "%s" "${pma_verbose}" > /pma/verbose
+RAW fi
+
+RAW if [ -n "${pma_sockets}" ]; then
+	CMD echo "======> Configuring sockets ... <======"
+	CMD printf "%s" "${pma_sockets}" > /pma/sockets
+RAW elif [ -n "${pma_socket}" ]; then
+	CMD echo "======> Configuring socket ... <======"
+	CMD printf "%s" "${pma_socket}" > /pma/socket
+RAW fi
+
+RAW if [ -n "${pma_ports}" ]; then
+	CMD echo "======> Configuring ports ... <======"
+	CMD printf "%s" "${pma_ports}" > /pma/ports
+RAW elif [ -n "${pma_port}" ]; then
+	CMD echo "======> Configuring ports ... <======"
+	CMD printf "%s" "${pma_port}" > /pma/port
+RAW fi
+
+RAW if [ -n "${pma_absolute_uri}" ]; then
+	CMD echo "======> PmaAbsoluteUri -> ${pma_absolute_uri} <======"
+	CMD printf "%s" "${pma_absolute_uri}" > /pma/PmaAbsoluteUri
+RAW fi
+
+RAW if [ -n "${pma_user}" ]; then
+	CMD echo "======> auth_type -> config <======"
+
+	CMD echo "======> user -> ${pma_user} <======"
+	CMD printf "%s" "${pma_user}" > /pma/user
+
+RAW 	if [ -n "${pma_password}" ]; then
+		CMD echo "======> password -> <hidden> <======"
+		CMD printf "%s" "${pma_password}" > /pma/password
+RAW 	fi
+RAW else
+	CMD echo "======> auth_type -> cookie <======"
+RAW fi
+
+RAW if [ -n "${pma_uploaddir}" ]; then
+	CMD echo "======> UploadDir -> ${pma_uploaddir} <======"
+	CMD printf "%s" "${pma_uploaddir}" > /pma/UploadDir
+RAW fi
+
+RAW if [ -n "${pma_savedir}" ]; then
+	CMD echo "======> SaveDir -> ${pma_savedir} <======"
+	CMD printf "%s" "${pma_savedir}" > /pma/SaveDir
+RAW fi
+
+RAW if [ -n "${pma_controlhost}" ]; then
+	CMD echo "======> controlhost -> ${pma_controlhost} <======"
+	CMD printf "%s" "${pma_controlhost}" > /pma/controlhost
+RAW fi
+
+RAW if [ -n "${pma_controlport}" ]; then
+	CMD echo "======> controlport -> ${pma_controlport} <======"
+	CMD printf "%s" "${pma_controlport}" > /pma/controlport
+RAW fi
+
+RAW if [ -n "${pma_controluser}" ]; then
+	CMD echo "======> controluser -> ${pma_controluser} <======"
+	CMD printf "%s" "${pma_controluser}" > /pma/controluser
+RAW fi
+
+RAW if [ -n "${pma_controlpass}" ]; then
+	CMD echo "======> controlpass -> <hidden> <======"
+	CMD printf "%s" "${pma_controlpass}" > /pma/controlpass
+RAW fi
+
+RAW if [ -n "${pma_pmadb}" ]; then
+	CMD echo "======> pmadb -> ${pma_pmadb} <======"
+	CMD printf "%s" "${pma_pmadb}" > /pma/pmadb
+RAW fi
+
+RAW if [ -n "${pma_queryhistorydb}" ]; then
+	CMD echo "======> QueryHistoryDB -> ${pma_queryhistorydb} <======"
+	CMD touch /pma/QueryHistoryDB
+
+RAW 	if ! printf "%s" "${pma_queryhistorymax}" | grep -qEe '^[0-9]+$'; then
+RAW 		echo "###> '${pma_queryhistorymax}' Invalid QueryHistoryMax. <###"
+RAW 		exit 1
+RAW 	fi
+
+RAW 	if [ -n "${pma_queryhistorymax}" ]; then
+		CMD echo "======> QueryHistoryMax -> ${pma_queryhistorymax} <======"
+		CMD printf "%s" "${pma_queryhistorymax}" > /pma/QueryHistoryMax
+RAW 	fi
+RAW fi
+
+VAR --make-arg-env phpdir=/usr/local/etc/php
+
+RAW if [ -n "${pma_hide_php_version}" ]; then
+	CMD echo "======> PHP version is not hidden: expose_php -> Off <======"
+	CMD echo "expose_php = Off" > ${phpdir}/phpmyadmin-hide-php-version.ini
+RAW fi
+
+RAW if ! printf "%s" "${pma_upload_limit}" | grep -qEe '^[0-9]+[KMG]$'; then
+RAW 	echo "###> '${pma_upload_limit}' Invalid upload limit. <###"
+RAW 	exit 1
+RAW fi
+
+RAW if ! printf "%s" "${pma_memory_limit}" | grep -qEe '^[0-9]+[KMG]$'; then
+RAW 	echo "###> '${pma_memory_limit}' Invalid memory limit. <###"
+RAW 	exit 1
+RAW fi
+
+RAW if ! printf "%s" "${pma_max_execution_time}" | grep -qEe '^[0-9]+$'; then
+RAW 	echo "###> '${pma_max_execution_time}' Invalid max. execution time. <###"
+RAW 	exit 1
+RAW fi
+
+CMD echo "======> ExecTimeLimit -> ${pma_max_execution_time} <======"
+CMD printf "%s" "${pma_max_execution_time}" > /pma/ExecTimeLimit
+
+CMD echo "======> MemoryLimit -> ${pma_memory_limit} <======"
+CMD printf "%s" "${pma_memory_limit}" > /pma/MemoryLimit
+
+CMD echo "======> Copying required .ini files ... <======"
+
+COPY --verbose files/opcache-recommended.ini ${phpdir}
+COPY --verbose files/session-strict.ini ${phpdir}
+COPY --verbose files/phpmyadmin-misc.ini ${phpdir}
+
+CMD echo "======> Configuring phpmyadmin-misc.ini ... <======"
+
+REPLACE ${phpdir}/phpmyadmin-misc.ini UPLOAD_LIMIT ${pma_upload_limit}
+REPLACE ${phpdir}/phpmyadmin-misc.ini MEMORY_LIMIT ${pma_memory_limit}
+REPLACE ${phpdir}/phpmyadmin-misc.ini MAX_EXECUTION_TIME ${pma_max_execution_time}
+REPLACE ${phpdir}/phpmyadmin-misc.ini SESSION_SAVE_PATH ${pma_session_save_path}
+REPLACE ${phpdir}/phpmyadmin-misc.ini TZ ${pma_tz}
+
+CMD echo "======> Creating directory for session.save_path ... <======"
+CMD mkdir -p "${pma_session_save_path}"
+CMD chown www:www "${pma_session_save_path}"
+
+CMD echo "======> Uninstalling scripts ... <======"
+CMD rm -vrf /scripts
+
+RAW if [ ${pma_type} = "apache" ]; then
+	VAR --make-arg-env wwwdir=/usr/local/www/apache24/data
+
+	# This symlink is only created for apache as php-fpm Makejail already has
+	# this feature.
+	CMD echo "======> Creating symlink /usr/local/etc/php.ini-${pma_php_type} -> /usr/local/etc/php.ini <======"
+	CMD ln -s /usr/local/etc/php.ini-${pma_php_type} /usr/local/etc/php.ini
+RAW else
+	VAR --make-arg-env wwwdir=/usr/local/www/phpMyAdmin
+RAW fi
+
+CMD echo "======> Copying config.secret.inc.php ... <======"
+COPY files/config.secret.inc.php ${wwwdir}
+
+CMD echo "======> Copying config.inc.php ... <======"
+COPY files/config.inc.php ${wwwdir}
+
+RAW if [ "${pma_enable_curl_support}" != 0 ]; then
+	RAW php_version=`echo '<?php echo phpversion();' | appjail cmd jexec "${APPJAIL_JAILNAME}" php | sed -Ee 's/([0-9]+)\.([0-9]+).+/\1\2/'`
+
+	PKG php${php_version}-curl
+RAW fi
+
+RAW if [ ${pma_type} = "apache" ]; then
+	CMD echo "======> Restarting apache24 ... <======"
+	SERVICE apache24 restart
+RAW else
+	CMD echo "======> Restarting php-fpm ... <======"
+	SERVICE php-fpm restart
+RAW fi
