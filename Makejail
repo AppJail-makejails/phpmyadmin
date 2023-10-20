@@ -204,7 +204,6 @@ CMD printf "%s" "${pma_memory_limit}" > /pma/MemoryLimit
 
 CMD echo "======> Copying required .ini files ... <======"
 
-COPY --verbose files/opcache-recommended.ini ${phpdir}
 COPY --verbose files/session-strict.ini ${phpdir}
 COPY --verbose files/phpmyadmin-misc.ini ${phpdir}
 
