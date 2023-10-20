@@ -131,7 +131,7 @@ Set the argument `pma_absolute_uri` to the fully-qualified path (e.g.: `https://
 * `pma_queryhistorydb` (optional): When set to [true](https://docs.phpmyadmin.net/en/latest/config.html#cfg_QueryHistoryDB), enables storing [SQL history](https://docs.phpmyadmin.net/en/latest/config.html#cfg_Servers_history) to the [phpMyAdmin Configuration Storage database](https://docs.phpmyadmin.net/en/latest/setup.html#phpmyadmin-configuration-storage). When [false](https://docs.phpmyadmin.net/en/latest/config.html#cfg_QueryHistoryDB), history is stored in the browser and is cleared when logging out.
 * `pma_queryhistorymax` (default: `25`): When set to an integer, controls the number of history items.
 * `pma_tz` (default: `UTC`): Change [date.timezone](https://www.php.net/manual/en/datetime.configuration.php#ini.date.timezone).
-* `pma_php_type` (default: `production`) The PHP configuration file to link to `/usr/local/etc/php.ini`. Valid values: `development`, `production`.
+* `pma_php_type` (default: `production`) The PHP configuration file to link to `/usr/local/etc/php.ini`. Valid values: `development`, `production`. Only valid for apache, use the `php_type` argument when using php-fpm.
 * `pma_enable_curl_support` (default: `1`): Install with cURL extension.
 
 ## How to build the Image
