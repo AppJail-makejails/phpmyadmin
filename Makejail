@@ -35,6 +35,11 @@ ARG pma_tag=13.2-php82-apache
 
 FROM --entrypoint gh+AppJail-makejails/phpmyadmin phpmyadmin:${pma_tag}
 
+RAW case "${pma_php_type}" in
+RAW 	development|production) ;;
+RAW 	*) echo "VALID TYPES: development, production"; exit 1
+RAW esac
+
 # Determine whether this Makejail will use apache or php-fpm.
 RAW case "${pma_tag}" in
 RAW 	*apache*)
