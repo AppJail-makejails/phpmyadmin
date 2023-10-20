@@ -6,3 +6,5 @@ RAW if ! printf "%s" "${pma_version}" | grep -qEe '^8[0-3]$'; then
 RAW fi
 
 PKG phpMyAdmin5-php${pma_version}
+
+INCLUDE pkgs.makejail
