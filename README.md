@@ -157,7 +157,7 @@ appjail makejail \
     -o virtualnet=":<random> default" \
     -o nat -- \
         --php_tag 13.2-82 \
-        --php_use_fpm \
+        --php_use_fpm 1 \
         --pma_version 82
 ```
 
