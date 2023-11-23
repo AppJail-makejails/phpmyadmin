@@ -180,8 +180,8 @@ appjail image export pma
 
 | Tag                 | Arch    | Version           | Type   | `pma_version` |
 | ------------------- | ------- | ----------------- | ------ | ------------- |
-| `13.2-php82-apache` | `amd64` | `13.2-RELEASE-p4` | `thin` |      `82`     |
-| `13.2-php82-fpm`    | `amd64` | `13.2-RELEASE-p4` | `thin` |      `82`     |
+| `13.2-php82-apache` | `amd64` | `13.2-RELEASE` | `thin` |      `82`     |
+| `13.2-php82-fpm`    | `amd64` | `13.2-RELEASE` | `thin` |      `82`     |
 
 ## Notes
 
