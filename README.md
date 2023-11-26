@@ -134,48 +134,6 @@ Set the argument `pma_absolute_uri` to the fully-qualified path (e.g.: `https://
 * `pma_php_type` (default: `production`) The PHP configuration file to link to `/usr/local/etc/php.ini`. Valid values: `development`, `production`. Only valid for apache, use the `php_type` argument when using php-fpm.
 * `pma_enable_curl_support` (default: `1`): Install with cURL extension.
 
-## How to build the Image
-
-### Apache
-
-```sh
-appjail makejail \
-    -j pma \
-    -f "gh+AppJail-makejails/phpmyadmin --file build-with-apache.makejail" \
-    -o virtualnet=":<random> default" \
-    -o nat -- \
-        --apache_tag 13.2-php82 \
-        --pma_version 82
-```
-
-### FPM
-
-```sh
-appjail makejail \
-    -j pma \
-    -f "gh+AppJail-makejails/phpmyadmin --file build-with-php-fpm.makejail" \
-    -o virtualnet=":<random> default" \
-    -o nat -- \
-        --php_tag 13.2-82 \
-        --php_use_fpm 1 \
-        --pma_version 82
-```
-
-### Build
-
-```sh
-appjail stop pma
-appjail cmd local pma sh -c "rm -f var/log/*"
-appjail cmd local pma sh -c "rm -f var/cache/pkg/*"
-appjail cmd local pma sh -c "rm -f var/run/*"
-appjail cmd local pma vi etc/rc.conf
-appjail image export pma
-```
-
-### Arguments
-
-* `pma_version` (default: `82`): PHP version. Valid values: `80`, `81`, `82`, `83`.
-
 ## Tags
 
 | Tag                 | Arch    | Version        | Type   | `pma_version` |
