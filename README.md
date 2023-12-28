@@ -145,4 +145,4 @@ Set the argument `pma_absolute_uri` to the fully-qualified path (e.g.: `https://
 
 ## Notes
 
-* The ideas present in the Docker image of phpMyAdmin are taken into account for users who are familiar with it.
+1. The ideas present in the Docker image of phpMyAdmin are taken into account for users who are familiar with it.
