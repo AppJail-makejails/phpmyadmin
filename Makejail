@@ -31,7 +31,7 @@ ARG pma_tz=UTC
 ARG pma_php_type=production
 ARG pma_enable_curl_support=1
 # Tag.
-ARG pma_tag=13.2-php82-apache
+ARG pma_tag=13.3-php82-apache
 
 FROM --entrypoint gh+AppJail-makejails/phpmyadmin phpmyadmin:${pma_tag}
 
