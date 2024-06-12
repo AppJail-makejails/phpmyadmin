@@ -140,8 +140,8 @@ Set the argument `pma_absolute_uri` to the fully-qualified path (e.g.: `https://
 | ------------------- | ------- | -------------- | ------ | ------------- |
 | `13.3-php82-apache` | `amd64` | `13.3-RELEASE` | `thin` |      `82`     |
 | `13.3-php82-fpm`    | `amd64` | `13.3-RELEASE` | `thin` |      `82`     |
-| `14.0-php82-apache` | `amd64` | `14.0-RELEASE` | `thin` |      `82`     |
-| `14.0-php82-fpm`    | `amd64` | `14.0-RELEASE` | `thin` |      `82`     |
+| `14.1-php82-apache` | `amd64` | `14.1-RELEASE` | `thin` |      `82`     |
+| `14.1-php82-fpm`    | `amd64` | `14.1-RELEASE` | `thin` |      `82`     |
 
 ## Notes
 
