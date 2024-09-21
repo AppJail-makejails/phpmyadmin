@@ -250,5 +250,5 @@ RAW if [ ${pma_type} = "apache" ]; then
 	SERVICE apache24 restart
 RAW else
 	CMD echo "======> Restarting php-fpm ... <======"
-	SERVICE php-fpm restart
+	SERVICE php_fpm restart
 RAW fi
