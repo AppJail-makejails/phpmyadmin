@@ -1,0 +1,10 @@
+ARG pma_version=%%PHP2%%
+
+RAW case "${pma_version}" in
+RAW     %%PHP1%%|%%PHP2%%|%%PHP3%%|%%PHP4%%) ;;
+RAW     *) echo "VALID VERSIONS: %%PHP1%%, %%PHP2%%, %%PHP3%%, %%PHP4%%"; exit 1 ;;
+RAW esac
+
+PKG phpMyAdmin5-php${pma_version}
+
+INCLUDE pkgs.makejail

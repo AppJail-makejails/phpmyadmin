@@ -1,9 +1,9 @@
 ARG pma_version=82
 
-RAW if ! printf "%s" "${pma_version}" | grep -qEe '^8[0-3]$'; then
-	CMD echo "###> '${pma_version}' - Valid versions are 80, 81, 82, 83. <###"
-	RAW exit 1
-RAW fi
+RAW case "${pma_version}" in
+RAW     81|82|83|84) ;;
+RAW     *) echo "VALID VERSIONS: 81, 82, 83, 84"; exit 1 ;;
+RAW esac
 
 PKG phpMyAdmin5-php${pma_version}
 
