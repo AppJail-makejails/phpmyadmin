@@ -32,7 +32,7 @@ ARG pma_php_type=production
 ARG pma_enable_curl_support=1
 ARG pma_ajspec=gh+AppJail-makejails/phpmyadmin
 # Tag.
-ARG pma_tag=13.5-php82-apache
+ARG pma_tag=14.3-php82-apache
 
 FROM --entrypoint "${pma_ajspec}" phpmyadmin:${pma_tag}
 

@@ -102,7 +102,7 @@ Set the argument `pma_absolute_uri` to the fully-qualified path (e.g.: `https://
 
 ### Arguments
 
-* `pma_tag` (default: `13.5-php82-apache`): see [#tags](#tags).
+* `pma_tag` (default: `14.3-php82-apache`): see [#tags](#tags).
 * `pma_ajspec` (default: `gh+AppJail-makejails/phpmyadmin`): Entry point where the `appjail-ajspec(5)` file is located.
 * `pma_blowfish_secret` (optional): AES password to use when `auth_type` is `cookie`. If not defined, a random secret will be generated.
 * `pma_arbitrary` (optional): If enabled, allows you to log in to arbitrary servers using cookie authentication.
@@ -139,10 +139,10 @@ Set the argument `pma_absolute_uri` to the fully-qualified path (e.g.: `https://
 
 | Tag                 | Arch    | Version        | Type   | `pma_version` |
 | ------------------- | ------- | -------------- | ------ | ------------- |
-| `13.5-php82-apache` | `amd64` | `13.5-RELEASE` | `thin` |      `82`     |
-| `13.5-php82-fpm`    | `amd64` | `13.5-RELEASE` | `thin` |      `82`     |
 | `14.3-php82-apache` | `amd64` | `14.3-RELEASE` | `thin` |      `82`     |
 | `14.3-php82-fpm`    | `amd64` | `14.3-RELEASE` | `thin` |      `82`     |
+| `15-php82-apache` | `amd64` | `15` | `thin` |      `82`     |
+| `15-php82-fpm`    | `amd64` | `15` | `thin` |      `82`     |
 
 ## Notes
 
