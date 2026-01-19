@@ -26,4 +26,3 @@ tags+: 15-php82-fpm
 15-php82-fpm.sum.amd64: 12a2270ce766d08bec883352d1b30433fd3e454b57ac5c4c586c68aaf042b504
 15-php82-fpm.size.amd64: 242076914
 15-php82-fpm.source.amd64: "http://appjail.hpc.at/phpmyadmin-fpm/15-php82-fpm-amd64-image.appjail"
-maintenance: "This image is uploading, please wait a moment and try again. If you are importing this image using a Makejail that has the '--<name>_ajspec' argument, you can use the 'reproduce' method to use 'appjail-reproduce'. See 'appjail-image(5)' for details."
