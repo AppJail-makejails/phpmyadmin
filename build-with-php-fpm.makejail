@@ -1,2 +1,0 @@
-INCLUDE gh+AppJail-makejails/php
-INCLUDE install-phpmyadmin.makejail
