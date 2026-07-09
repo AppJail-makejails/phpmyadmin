@@ -61,8 +61,7 @@ options:
 services:
   db:
     name: mariadb
-    arguments:
-      - image: mariadb
+    makejail: gh+AppJail-makejails/mariadb
     oci:
       environment:
         - MYSQL_ROOT_PASSWORD: notSecureChangeMe
@@ -71,29 +70,12 @@ services:
 
   phpmyadmin:
     name: phpmyadmin
-    arguments:
-      - image: phpmyadmin
+    makejail: gh+AppJail-makejails/phpmyadmin
     oci:
       environment:
         - PMA_ARBITRARY: 1
     options:
       - container: 'boot args:--pull'
-```
-
-**Makejail**:
-
-```
-ARG image
-ARG tag=latest
-
-OPTION overwrite=force
-OPTION from=ghcr.io/appjail-makejails/${image}:${tag}
-```
-
-**.env**:
-
-```dotenv
-DIRECTOR_PROJECT=phpmyadmin
 ```
 
 ### Adding Custom Configuration
