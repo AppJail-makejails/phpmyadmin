@@ -1,5 +1,6 @@
 ARG phpmyadmin_from=ghcr.io/appjail-makejails/phpmyadmin
 ARG phpmyadmin_tag=latest
 
+OPTION container=boot
 OPTION overwrite=force
 OPTION from=${phpmyadmin_from}:${phpmyadmin_tag}

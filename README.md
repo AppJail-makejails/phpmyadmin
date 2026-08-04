@@ -66,7 +66,7 @@ services:
       environment:
         - MYSQL_ROOT_PASSWORD: notSecureChangeMe
     options:
-      - container: 'boot args:--pull'
+      - container: 'args:--pull'
 
   phpmyadmin:
     name: phpmyadmin
@@ -75,7 +75,7 @@ services:
       environment:
         - PMA_ARBITRARY: 1
     options:
-      - container: 'boot args:--pull'
+      - container: 'args:--pull'
 ```
 
 ### Adding Custom Configuration
