@@ -25,7 +25,7 @@ ENV SESSION_SAVE_PATH=/sessions
 RUN set -xe; \
     \
     pkg update; \
-    pkg install -U phpMyAdmin5-php${PHPVER} \
+    pkg install phpMyAdmin5-php${PHPVER} \
         gsed \
         bash; \
     \
