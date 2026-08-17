@@ -23,6 +23,8 @@ ENV TZ=UTC
 ENV SESSION_SAVE_PATH=/sessions
 RUN set -xe; \
     \
+    umask 0022; \
+    \
     pkg update; \
     pkg install phpMyAdmin5-php${PHPVER} \
         gsed \
